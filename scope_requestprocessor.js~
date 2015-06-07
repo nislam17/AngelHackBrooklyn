@@ -92,7 +92,7 @@ function searchUser(email, password) {
     var search_req = new cps.SearchRequest('<user><email>' + email + '</email><password>' + password + '</password></user>');
     cpsConn.sendRequest(search_req, function (err, search_resp) {
 	    if (err) return console.log(err);
-	    console.log(search_resp.results.document[0].name);
+	    console.log(search_resp.results.document);
 	});
 };
 
@@ -101,7 +101,11 @@ function listFeed(_lat, _long) {
     var search_req = new cps.SearchRequest('*');
     cpsConn.sendRequest(search_req, function (err, search_resp) {
 	    if(err) return console.log(err);
-	    console.log(search_resp.results.document[0].name);
+	    //console.log(search_resp.results.document[0].name);
+	    var resp = search_resp.results.document;
+	    for (var i = 0; i < resp.length; i++) {
+		console.log(resp[i].user);
+	    } 
 	});
 };
 

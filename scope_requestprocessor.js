@@ -103,11 +103,13 @@ function listFeed(_lat, _long) {
 	    if(err) return console.log(err);
 	    //console.log(search_resp.results.document[0].name);
 	    var resp = search_resp.results.document;
-	    console.log(resp);
+	    for (var i = 0; i < resp.length; i++) {
+		console.log(resp[i].user.location);
+	    } 
 	});
 };
 
-//listFeed(0,0); 
+listFeed(0,0); 
 //searchUser('currystain@gail.com', 'hyperlocal');
 /*insertUser('Nazifa Islam', 'ni444@nyu.edu', 2, 3, 'IAmBeautiful');
 insertUser('Mehul Patel', 'currystain@gail.com', -1, -1, 'hyperlocal');
