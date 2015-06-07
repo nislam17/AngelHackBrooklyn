@@ -92,14 +92,22 @@ function searchUser(email, password) {
     var search_req = new cps.SearchRequest('<user><email>' + email + '</email><password>' + password + '</password></user>');
     cpsConn.sendRequest(search_req, function (err, search_resp) {
 	    if (err) return console.log(err);
-	    console.log(search_resp.results.document[0].name);
+	    console.log(search_resp.results.document);
 	});
-  };
+};
 
-/*
+
 function listFeed(_lat, _long) {
+    var search_req = new cps.SearchRequest('*');
+    cpsConn.sendRequest(search_req, function (err, search_resp) {
+	    if(err) return console.log(err);
+	    //console.log(search_resp.results.document[0].name);
+	    var resp = search_resp.results.document;
+	    console.log(resp);
+	});
+};
 
-}*/
+//listFeed(0,0); 
 //searchUser('currystain@gail.com', 'hyperlocal');
 /*insertUser('Nazifa Islam', 'ni444@nyu.edu', 2, 3, 'IAmBeautiful');
 insertUser('Mehul Patel', 'currystain@gail.com', -1, -1, 'hyperlocal');
