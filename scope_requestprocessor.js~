@@ -113,8 +113,8 @@ function distance(lat, longi, lat2, lon2) {
 }
 
 function listRect(_lat, _long) {
-    var search_req = new cps.SearchRequest('<user><location><latitude>&lt;=' + (_lat + 0.00724637681) + ' &gt;=' + (_lat - 0.00724637681) +
-					   '</latitude><longitude>&lt;=' + (_long + 0.00724637681) + ' &gt;=' + (_long - 0.00724637681) +
+    var search_req = new cps.SearchRequest('<user><location><latitude>&lt;=' + (_lat + 0.0144927536) + ' &gt;=' + (_lat - 0.0144927536) +
+					   '</latitude><longitude>&lt;=' + (_long + 0.0144927536) + ' &gt;=' + (_long - 0.0144927536) +
 					   '</longitude></location></user>');
     cpsConn.sendRequest(search_req, function (err, search_resp) {
 	    if (err) return console.log(err);
@@ -152,12 +152,12 @@ function listFeed(_lat, _long) {
 	});
 };
 
-var temp_lat = 51.863363;
-var temp_long = 0.232375;
+//var temp_lat = 51.863363;
+//var temp_long = 0.232375;
 //insertUser('Matthew', 'mkl@nyu.edu', 1, 1, 'password');
-for (var i = 0; i < 8; ++i)
+/*for (var i = 0; i < 8; ++i)
     insertUser('Matt' + i, 'mlaikhram' + i + '@gmail.com', (temp_lat + (i*.0005)), (temp_long + (i*.0005)), 'password' + i);
-
+*/
 //insertUser('Matthew', 'matt@gmail.com', 1, 1, 'password');
 //searchUser('bbeebb', 'lionebbb');
 listRect(51.863363, 0.232375);

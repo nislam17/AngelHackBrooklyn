@@ -113,8 +113,8 @@ function distance(lat, longi, lat2, lon2) {
 }
 
 function listRect(_lat, _long) {
-    var search_req = new cps.SearchRequest('<user><location><latitude>&lt;=' + (_lat + 0.00724637681) + ' &gt;=' + (_lat - 0.00724637681) +
-					   '</latitude><longitude>&lt;=' + (_long + 0.00724637681) + ' &gt;=' + (_long - 0.00724637681) +
+    var search_req = new cps.SearchRequest('<user><location><latitude>&lt;=' + (_lat + 0.0144927536) + ' &gt;=' + (_lat - 0.0144927536) +
+					   '</latitude><longitude>&lt;=' + (_long + 0.0144927536) + ' &gt;=' + (_long - 0.0144927536) +
 					   '</longitude></location></user>');
     cpsConn.sendRequest(search_req, function (err, search_resp) {
 	    if (err) return console.log(err);
