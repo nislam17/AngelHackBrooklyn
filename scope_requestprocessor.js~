@@ -104,12 +104,14 @@ function listFeed(_lat, _long) {
 	    //console.log(search_resp.results.document[0].name);
 	    var resp = search_resp.results.document;
 	    for (var i = 0; i < resp.length; i++) {
-		console.log(resp[i].user);
+		console.log(resp[i].user.location);
 	    } 
 	});
 };
 
-listFeed(0,0); 
+insertUser('Matthew', 'mkl@nyu.edu', 1, 1, 'password');
+
+//listFeed(0,0); 
 //searchUser('currystain@gail.com', 'hyperlocal');
 /*insertUser('Nazifa Islam', 'ni444@nyu.edu', 2, 3, 'IAmBeautiful');
 insertUser('Mehul Patel', 'currystain@gail.com', -1, -1, 'hyperlocal');
