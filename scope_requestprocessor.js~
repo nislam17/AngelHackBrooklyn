@@ -82,9 +82,9 @@ function deletePost(_id) {
 function searchUser(email) {
     var search_req = new cps.SearchRequest('<user><email>' + email + '</email></user>');
     cpsConn.sendRequest(search_req, function (err, search_resp) {
-	    if (err) return false;
+	    if (err) return err;
 	    console.log('New user registered: ' + insert_response.document.user);
-	    return true;
+
 	});
 };
 
@@ -96,11 +96,7 @@ function searchUser(email, password) {
 	});
   };
 
-/*
-function listFeed(_lat, _long) {
-
-}*/
-//searchUser('currystain@gail.com', 'hyperlocal');
+searchUser('currystain@gmail.com', 'hyperlocal');
 /*insertUser('Nazifa Islam', 'ni444@nyu.edu', 2, 3, 'IAmBeautiful');
 insertUser('Mehul Patel', 'currystain@gail.com', -1, -1, 'hyperlocal');
 insertUser('Matthew Laikhram', 'iamannoying@annoying.com', 0, 0, 'sexycani');
