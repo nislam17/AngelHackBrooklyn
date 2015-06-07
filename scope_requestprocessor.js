@@ -25,7 +25,7 @@ function cuniq() {
 
 // Insert
 
-function insertUser(_name, _email, _long, _lat, _password) {
+function insertUser(_name, _email, _lat, _long, _password) {
     var id = cuniq(); 
     var insert_request = new cps.InsertRequest('<document><id>'
 					       + id +'</id>'+'<user><name>'
@@ -79,11 +79,12 @@ function deletePost(_id) {
     
 };
 
-function searchUser(email) {
+function searchEmail(email) {
     var search_req = new cps.SearchRequest('<user><email>' + email + '</email></user>');
     cpsConn.sendRequest(search_req, function (err, search_resp) {
-	    if (err) return false;
-	    console.log('New user registered: ' + insert_response.document.user);
+	    if (err) return console.log(err); //return false;
+	    //console.log('User found: ' + insert_response.document.user);
+	    console.log(search_resp.results.document);
 	    return true;
 	});
 };
@@ -96,22 +97,72 @@ function searchUser(email, password) {
 	});
 };
 
+//Algo to calculate the shortest straight line distance, betwween two users using the Havershine's formula.
+function distance(lat, longi, lat2, lon2) {
+  var radlat1 = Math.PI * lat/180
+  var radlat2 = Math.PI * lat2/180
+  var radlon1 = Math.PI * longi/180
+  var radlon2 = Math.PI * lon2/180
+  var theta = longi-lon2
+  var radtheta = Math.PI * theta/180
+  var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist)
+  dist = dist * 180/Math.PI
+  dist = dist * 60 * 1.1515
+  return dist;
+}
+
+function listRect(_lat, _long) {
+    var search_req = new cps.SearchRequest('<user><location><latitude>&lt;=' + (_lat + 0.00724637681) + ' &gt;=' + (_lat - 0.00724637681) +
+					   '</latitude><longitude>&lt;=' + (_long + 0.00724637681) + ' &gt;=' + (_long - 0.00724637681) +
+					   '</longitude></location></user>');
+    cpsConn.sendRequest(search_req, function (err, search_resp) {
+	    if (err) return console.log(err);
+	    console.log(search_resp.results.document);
+	});
+};
 
 function listFeed(_lat, _long) {
+	var counter = 0;
     var search_req = new cps.SearchRequest('*');
+    //console.log(search_req);
     cpsConn.sendRequest(search_req, function (err, search_resp) {
 	    if(err) return console.log(err);
 	    //console.log(search_resp.results.document[0].name);
 	    var resp = search_resp.results.document;
+	    //console.log(resp);
 	    for (var i = 0; i < resp.length; i++) {
-		console.log(resp[i].user);
-	    } 
+	    	//console.log(resp[i].user.location.latitude);
+	    	var result = distance(_lat, _long, resp[i].user.location.latitude, resp[i].user.location.longitude )/69;
+	    	// console.log("Lat 1 " + _lat);
+	    	// console.log("Long 1 " + _long);
+	    	// console.log("Lat 2 " + resp[i].user.location.latitude);
+	    	// console.log("Long 2 " + resp[i].user.location.longitude);
+	    	// console.log(result);
+	    	//console.log(result);
+		//console.log(resp[i].user);
+		//if (Math.pow(resp[i].user.location.latitude - _lat, 2) + Math.pow(resp[i].user.location.longitude - _long, 2) <= Math.pow((1/69), 2)){
+		  if(result <= 1){
+			 
+			 console.log(resp[i].user);
+		    counter++;
+			}
+		} s		// console.log("BITCHHHHITCHHHHITCHHHHITCHHHHITCHHHHITCHHHHITCHHHHITCHHHHITCHHHHITCHHHHITCHHHHHHH");
+		// console.log(counter);
 	});
 };
 
+var temp_lat = 51.863363;
+var temp_long = 0.232375;
 //insertUser('Matthew', 'mkl@nyu.edu', 1, 1, 'password');
+for (var i = 0; i < 8; ++i)
+    insertUser('Matt' + i, 'mlaikhram' + i + '@gmail.com', (temp_lat + (i*.0005)), (temp_long + (i*.0005)), 'password' + i);
 
-//listFeed(0,0); 
+//insertUser('Matthew', 'matt@gmail.com', 1, 1, 'password');
+//searchUser('bbeebb', 'lionebbb');
+listRect(51.863363, 0.232375);
+//searchEmail('matt@gmail.com');
+//listFeed(51.5034431,-.1279631); 
 //searchUser('currystain@gail.com', 'hyperlocal');
 /*insertUser('Nazifa Islam', 'ni444@nyu.edu', 2, 3, 'IAmBeautiful');
 insertUser('Mehul Patel', 'currystain@gail.com', -1, -1, 'hyperlocal');
