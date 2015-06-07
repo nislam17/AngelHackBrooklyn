@@ -152,12 +152,12 @@ function listFeed(_lat, _long) {
 	});
 };
 
-var temp_lat = 51.5033630;
-var temp_long = -.1276250;
+var temp_lat = 51.863363;
+var temp_long = 0.232375;
 //insertUser('Matthew', 'mkl@nyu.edu', 1, 1, 'password');
-/*for (var i = 0; i < 10; ++i)
-    insertUser('Matt' + i, 'mlaikhram' + (temp_lat + (i/100)) + '@gmail.com', (temp_lat + (i/100)), (temp_long + (i/100)), 'password' + i);
-*/
+for (var i = 0; i < 8; ++i)
+    insertUser('Matt' + i, 'mlaikhram' + i + '@gmail.com', (temp_lat + (i*.0005)), (temp_long + (i*.0005)), 'password' + i);
+
 //insertUser('Matthew', 'matt@gmail.com', 1, 1, 'password');
 //searchUser('bbeebb', 'lionebbb');
 listRect(51.863363, 0.232375);
